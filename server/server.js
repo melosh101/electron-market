@@ -17,11 +17,11 @@ app.use(express.json());
 
 // Create a connection pool
 global.pool = mysql.createPool({
-    host: '172.16.3.63',
-    user: 'admin',
-    password: process.env.PASSWORD,
-    database: 'eam_db',
-    port: 3306 // Default MySQL port
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME,
+    port: process.env.DATABASE_PORT || 3306 // Default MySQL port
 });
 
 console.log(process.env.PASSWORD)

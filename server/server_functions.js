@@ -1,4 +1,6 @@
 const { checkIfUnique, registerUser, getUserByIdentifier, getUser } = require('./database_functions');
+const argon2 = require('argon2');
+
 
 async function handleRegisterRequest(username, email, password) {
     if (!username || !password) return [false, 'Username and password are required'];
@@ -38,7 +40,8 @@ async function handleLoginRequest(identifier, password) {
 
 function verifyPassword(storedPassword, providedPassword) {
     // In real applications, use bcrypt.compare for hashed passwords
-    return Promise.resolve(storedPassword === providedPassword);
+    // use argon2.verify for argon2-hashed passwords (recommended)
+    return Promise.resolve(argon2.verify(storedPassword, providedPassword));
 }
 
 async function profileSelection(username) {

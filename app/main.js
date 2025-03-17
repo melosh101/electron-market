@@ -24,6 +24,7 @@ function createWindow() {
     });
 
     win.loadFile("index.html");
+    win.webContents.openDevTools();
 }
 
 // Called when Electron has finished initialization

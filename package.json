@@ -1,0 +1,19 @@
+{
+  "name": "electron-market",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "concurrently \"bun run server:start\" \"bun run app:start\"",
+    "app:start": "cd app && npm start",
+    "server:start": "cd server && npm start"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

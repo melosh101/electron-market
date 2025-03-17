@@ -1,3 +1,25 @@
+const argon2 = require('argon2');
+
+// define the user type
+/**
+ * @typedef {Object} User
+ * @property {Number} user_id
+ * @property {String} username
+ * @property {String} email
+ * @property {String} password
+ * 
+ * @typedef {Object} Session
+ * @property {Number} id
+ * @property {String} token
+ * @property {Number} user_id
+ */
+
+/**
+ * 
+ * @param {*} type 
+ * @param {*} value 
+ * @returns 
+ */
 async function checkIfUnique(type, value) {
     try {
         let query = '';
@@ -16,11 +38,21 @@ async function checkIfUnique(type, value) {
     }
 }
 
+/**
+ * 
+ * @param {String} username 
+ * @param {String} email 
+ * @param {String} password 
+ * @returns {[Boolean, User | Error]}
+ */
 async function registerUser(username, email, password) {
     try {
-        const query = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
-        await pool.execute(query, [username, email, password]);
-        return true;
+        const query = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?) RETURNING username, email';
+        // hash password using argon2 a state of the art hashing algorithm
+        const hash = await argon2.hash(password);
+        const user = await pool.execute(query, [username, email, hash]);
+        console.log(user)
+        return [true, user];
     } catch (error) {
         console.error(error);
         return false;

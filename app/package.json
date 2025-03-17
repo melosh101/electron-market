@@ -1,5 +1,5 @@
 {
-  "name": "electron-market",
+  "name": "app",
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {

@@ -1,0 +1,8 @@
+CREATE TABLE sessions(
+  id int NOT NULL AUTO_INCREMENT,
+  user_id int NOT NULL,
+  token VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY(id),
+  FOREIGN KEY(user_id) REFERENCES users(id)
+);
